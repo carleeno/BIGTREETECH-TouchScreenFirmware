@@ -133,6 +133,18 @@ const GUI_RECT progressRect = {1*SPACE_X_PER_ICON, 0*ICON_HEIGHT+0*SPACE_Y+ICON_
 #define TEMP_Y (progressRect.y1 + 3)
 #define TIME_Y (TEMP_Y + 1 * BYTE_HEIGHT + 3)
 
+float getLayer()
+{
+  if (infoFile.source == BOARD_SD)
+  {
+    return coordinateGetAxisActual(Z_AXIS);
+  }
+  else
+  {
+    return coordinateGetAxisTarget(Z_AXIS);
+  }
+}
+
 void reValueNozzle(int icon_pos)
 {
   char tempstr[10];
@@ -232,7 +244,7 @@ void reDrawProgress(int icon_pos)
 void reDrawLayer(int icon_pos)
 {
   char tempstr[10];
-  sprintf(tempstr, "%.2fmm",coordinateGetAxisTarget(Z_AXIS));
+  sprintf(tempstr, "%.2fmm",getLayer());
 
   GUI_SetTextMode(GUI_TEXTMODE_TRANS);
 
@@ -266,6 +278,10 @@ void toggleinfo(void)
     rapid_serial_loop();   //perform backend printing loop before drawing to avoid printer idling
     reDrawSpeed(SPD_ICON_POS);
     speedQuery();
+    if (infoFile.source == BOARD_SD)
+    {
+      coordinateQuery();
+    }
   }
 }
 
@@ -375,8 +391,8 @@ void menuPrinting(void)
     }
 
     //Z_AXIS coordinate
-    if(curLayer != coordinateGetAxisTarget(Z_AXIS)){
-      curLayer = coordinateGetAxisTarget(Z_AXIS);
+    if(curLayer != getLayer()){
+      curLayer = getLayer();
       rapid_serial_loop();  //perform backend printing loop before drawing to avoid printer idling
       reDrawLayer(Z_ICON_POS);
     }
