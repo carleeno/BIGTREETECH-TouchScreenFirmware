@@ -63,17 +63,17 @@
  *         12: DARKBLUE,  13: DARKGREEN,  14: GRAY,   15: DARKGRAY
  */
 #define MARLIN_BKCOLOR 1
-#define MARLIN_FNCOLOR 0
+#define MARLIN_FNCOLOR 4
 
 /**
  * Text displayed at the top of the TFT in Marlin Mode.
  */
-#define MARLIN_BANNER_TEXT "LCD12864 Simulator"
+#define MARLIN_BANNER_TEXT "Ender"
 
 /**
  * show banner text at the top of the TFT in Marlin Mode.
  */
-#define MARLIN_SHOW_BANNER  true //to enabled: true | to disabled: false
+#define MARLIN_SHOW_BANNER  false //to enabled: true | to disabled: false
 /**
  * Run Marlin Mode in Fullscreen
  *
@@ -150,7 +150,7 @@
  *  TOAST: A Toast notification is displayed for few seconds. No user interaction is needed
  *
  */
-#define ACK_NOTIFICATION_STYLE 1
+#define ACK_NOTIFICATION_STYLE 2
 
 /**
  * Default Touch Mode Color Options
@@ -173,8 +173,8 @@
 #define FAN_CTRL_NUM 0    // set in 1~2
 
 #define PREHEAT_LABELS   {"PLA", "PETG", "ABS", "WOOD", "TPU", "NYLON"}
-#define PREHEAT_HOTEND   {200,   240,    230,   170,    220,   250}
-#define PREHEAT_BED      {60,    70,     90,    50,     50,    90}
+#define PREHEAT_HOTEND   {220,   240,    230,   170,    220,   250}
+#define PREHEAT_BED      {70,    70,     90,    50,     50,    90}
 
 #define HEAT_MAX_TEMP    {275,       275,       275,       275,       275,       275,       150,    60}   //max temperature can be set
 #define HEAT_SIGN_ID     {"T0:",     "T1:",     "T2:",     "T3:",     "T4:",     "T5:",     "B:",   "C:"}
@@ -210,20 +210,20 @@
 
 // Extrude speed mm/min
 #define EXTRUDE_SLOW_SPEED   60
-#define EXTRUDE_NORMAL_SPEED 600
-#define EXTRUDE_FAST_SPEED   1200
+#define EXTRUDE_NORMAL_SPEED 300
+#define EXTRUDE_FAST_SPEED   600
 
 // Size of machine
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 235
-#define Y_MAX_POS 235
-#define Z_MAX_POS 250
+#define X_MAX_POS 358
+#define Y_MAX_POS 358
+#define Z_MAX_POS 400
 
 // Specify a pause position as { X, Y, Z_raise }
-#define NOZZLE_PAUSE_RETRACT_LENGTH 15   // (mm)
-#define NOZZLE_RESUME_PURGE_LENGTH  16   // (mm)
+#define NOZZLE_PAUSE_RETRACT_LENGTH 2   // (mm)
+#define NOZZLE_RESUME_PURGE_LENGTH  1   // (mm)
 #define NOZZLE_PAUSE_X_POSITION     (X_MIN_POS + 10)  // (mm) Must be an integer
 #define NOZZLE_PAUSE_Y_POSITION     (Y_MIN_POS + 10)  // (mm) Must be an integer
 #define NOZZLE_PAUSE_Z_RAISE        20   // (mm)
@@ -266,7 +266,7 @@
  *
  * Options:  0: Disabled    1: Enabled
  */
-#define FRIENDLY_PROBE_OFFSET_LANGUAGE 1
+#define FRIENDLY_PROBE_OFFSET_LANGUAGE 0
 
 /**
  * Enable quick EEPROM save/load/reset button
@@ -336,12 +336,12 @@
 #define PS_ON_ACTIVE_HIGH    true   // Set 'false' for ATX (1), 'true' for X-Box (2)
 
 // Filament runout detection
-#define FIL_RUNOUT_INVERTING true  // Set to false to invert the logic of the sensor.
+#define FIL_RUNOUT_INVERTING false  // Set to false to invert the logic of the sensor.
 #define FIL_NOISE_THRESHOLD  100   // 100ms,  Pause print when filament runout is detected for 100ms.
 
 // Smart filament runout detection
 // For use with an encoder disc that toggles runout pin as filament moves
-#define FILAMENT_RUNOUT_DISTANCE_MM 7
+#define FILAMENT_RUNOUT_DISTANCE_MM 690
 
 // Enable alternative Move Menu Buttons Layout matching the direction of actual printer axis.
 // update the icons from alternate icon folder
@@ -449,6 +449,6 @@
 #define PRINT_END_GCODE "G90\nG1 E-4\nG92 E0\nM18\n" // Switch to absolute positioning, reduce filament pressure by performing small retract, reset extruder position, disable steppers
 
 // Cancel G-code - run this G-code after canceling print
-#define PRINT_CANCEL_GCODE "G28 XY R10\n" // Home XY and raise Z 10mm
+#define PRINT_CANCEL_GCODE "G28 XY R10\nM355 S25nM150 R255" // Home XY and raise Z 10mm, dim case light and red neopixels
 
 #endif
